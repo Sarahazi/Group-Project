@@ -27,20 +27,13 @@ def savings_goals_menu():
                 
 def budgets_menu():
     print("\n===== Budgets Menu =====")
-    with open("income.csv") as fin:
-        total_income = 0
-        headerline = fin.next()
-        total = 0
-        for row in csv.reader(fin):
-            for col in row[1]:
-                total_income += int(col)
-        with open("expenses.csv") as fin:
-            total_expenses = 0
-            headerline = fin.next()
-            total = 0
-            for row in csv.reader(fin):
-                for col in row[1]:
-                    total_expenses += int(col)
+    csv_income = 'income.csv'
+    with open(csv_income) as f:
+        total_income = sum(int(r['Value']) for r in csv.DictReader(f))
+            
+    csv_expenses = 'expenses.csv'
+    with open(csv_expenses) as f:
+        total_expenses = sum(int(r['Value']) for r in csv.DictReader(f))
 
     if total_income is not None and total_expenses is not None:
         total_balance = total_income - total_expenses
